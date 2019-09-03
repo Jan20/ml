@@ -5,7 +5,23 @@ from keras.applications import VGG16
 def create_model() -> Sequential: 
     
     conv_base = get_conv_base()
-    conv_base.trainable = False
+    conv_base.trainable: bool = True
+
+    set_trainable: bool = False
+
+    for layer in conv_base.layers:
+
+        if layer.name == 'block5_conv1':
+
+            set_trainable = True
+        
+        if set_trainable:
+
+            layer.trainable = True
+
+        else:
+
+            layer.trainable = False
 
     model = Sequential()
     model.add(conv_base)
